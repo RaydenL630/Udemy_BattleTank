@@ -16,6 +16,26 @@ class TOONTANKS_API ACPP_TankPlayerController : public APlayerController
 	GENERATED_BODY()
 
 public:
+
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+
+private:
+
+	UPROPERTY(EditAnywhere, Category = "Reticle Screen Location")
+	float CrossHairLocationX = 0.5f;
+
+	UPROPERTY(EditAnywhere, Category = "Reticle Screen Location")
+	float CrossHairLocationY = 0.33333f;
+
+	
+	void AimTowardsCrosshair();
+	
+	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
+	
 	ATank* GetControlledTank() const;
-	void BeginPlay() override;
+	
+	/*FVector2D FindScreenLocation();*/
+
+
 };
