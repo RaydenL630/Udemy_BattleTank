@@ -1,5 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "DrawDebugHelpers.h"
 
 #include "CPP_TankPlayerController.h"
 
@@ -37,7 +38,7 @@ void ACPP_TankPlayerController::AimTowardsCrosshair()
 
 	if (GetSightRayHitLocation(HitLocation))
 	{
-		//UE_LOG(LogTemp, Error, TEXT("Hit Location: %s"), *HitLocation.ToString());
+		UE_LOG(LogTemp, Warning, TEXT("Trace Hit Location: %s"), *HitLocation.ToString());
 	} 
 
 
@@ -52,16 +53,38 @@ bool ACPP_TankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) 
 	FVector2D ScreenLocation(CrossHairLocationX * VieportSizeX, CrossHairLocationY * VieportSizeY);
 
 	FVector DeprojectDirection;
-	FVector CameraWorldLocation;
+	FVector CameraWorldLocation; //Need to store it, then being discard.
 
 	if (DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, CameraWorldLocation, DeprojectDirection))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("%s - Hit Direction"), *DeprojectDirection.ToString());
-
+		GetLookVectorHitLocation(DeprojectDirection, OutHitLocation);
+		//UE_LOG(LogTemp, Warning, TEXT("%s - Hit Direction"), *DeprojectDirection.ToString());
 		return true;
 	}
 
 	return false;
+}
+
+bool ACPP_TankPlayerController::GetLookVectorHitLocation(FVector TraceDirection, FVector& HitLocation) const
+{
+	FVector TraceStart = GetWorld()->GetFirstPlayerController()->PlayerCameraManager->GetCameraLocation();
+	FCollisionQueryParams TraceParams(TEXT(""), false, this);
+	FHitResult OutHit;
+
+	bool AimingTrace = GetWorld()->LineTraceSingleByChannel(OutHit, TraceStart, TraceStart + TraceDirection * LineTraceRange, ECollisionChannel::ECC_Visibility, TraceParams);
+	
+	//DrawDebugLine(GetWorld(), TraceStart, TraceStart + TraceDirection * LineTraceRange, FColor(uint8 255, uint8 0, uint8 0), false, float -1.f, uint8 0, float 10.f);
+
+	if (AimingTrace)
+	{
+		HitLocation = OutHit.ImpactPoint;
+		return true;
+	}
+	else
+	{
+		HitLocation = FVector(0);
+		return false;
+	}
 }
 
 /*FVector2D ACPP_TankPlayerController::FindScreenLocation()

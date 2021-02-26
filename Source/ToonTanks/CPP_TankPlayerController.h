@@ -28,10 +28,14 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Reticle Screen Location")
 	float CrossHairLocationY = 0.33333f;
 
+	UPROPERTY(EditAnywhere, Category = "Reticle Screen Location")
+	float LineTraceRange = 300.f;
 	
 	void AimTowardsCrosshair();
 	
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
+
+	bool GetLookVectorHitLocation(FVector TraceDirection, FVector& HitLocation) const;
 	
 	ATank* GetControlledTank() const;
 	
