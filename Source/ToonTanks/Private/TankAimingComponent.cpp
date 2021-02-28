@@ -2,6 +2,7 @@
 
 
 #include "TankAimingComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -36,9 +37,22 @@ void UTankAimingComponent::BeginPlay()
 	
 }
 
-void UTankAimingComponent::TakeAim(FVector TargetLocation) const
+void UTankAimingComponent::TakeAim(FVector TargetLocation, float LaunchSpeed) const
 {
-	UE_LOG(LogTemp, Warning, TEXT("%s is aiming at: %s"), *GetName(), *TargetLocation.ToString());
+	if (!ProjectileSpawnPoint) { return; }
+
+	FVector ProjectileVelocity;
+	FCollisionResponseParams CollisionResponseParams;
+
+	TArray<AActor*> ActorsToIgnore;
+
+	bool Prediction= UGameplayStatics::SuggestProjectileVelocity(this, ProjectileVelocity, ProjectileSpawnPoint->GetComponentLocation(), TargetLocation, LaunchSpeed, false, 0.f, 1.f, ESuggestProjVelocityTraceOption::DoNotTrace);
+
+	if (Prediction)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%s is firing at %s"), *GetOwner()->GetName(), *ProjectileVelocity.GetSafeNormal().ToString());
+	}
+
 }
 
 

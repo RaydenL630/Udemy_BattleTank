@@ -33,7 +33,11 @@ public:
 
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
-		void SetProjectileSpawnPointReference(USceneComponent* ComponentToSet);
+	void SetProjectileSpawnPointReference(USceneComponent* ComponentToSet);
+
 
 private:
+
+	UPROPERTY(EditAnywhere, Category = Firing)
+	float LaunchSpeed = 100000.f;
 };

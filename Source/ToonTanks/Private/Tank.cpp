@@ -36,7 +36,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ATank::AimAt(FVector HitLocation)
 {
-	TankAimingComponent->TakeAim(HitLocation);
+	TankAimingComponent->TakeAim(HitLocation, LaunchSpeed);
 }
 
 void ATank::SetProjectileSpawnPointReference(USceneComponent* ComponentToSet)
