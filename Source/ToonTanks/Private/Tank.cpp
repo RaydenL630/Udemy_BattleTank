@@ -2,6 +2,7 @@
 
 
 #include "Tank.h"
+#include "TankBarrel.h"
 
 // Sets default values
 ATank::ATank()
@@ -39,7 +40,7 @@ void ATank::AimAt(FVector HitLocation)
 	TankAimingComponent->TakeAim(HitLocation, LaunchSpeed);
 }
 
-void ATank::SetProjectileSpawnPointReference(USceneComponent* ComponentToSet)
+void ATank::SetProjectileSpawnPointReference(UTankBarrel* ComponentToSet)
 {
 	TankAimingComponent->SetProjectileSpawnPoint(ComponentToSet);
 }

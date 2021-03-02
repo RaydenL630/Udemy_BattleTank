@@ -7,6 +7,8 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
+class UTankBarrel;
+
 UCLASS()
 class TOONTANKS_API ATank : public APawn
 {
@@ -33,7 +35,7 @@ public:
 
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetProjectileSpawnPointReference(USceneComponent* ComponentToSet);
+	void SetProjectileSpawnPointReference(UTankBarrel* ComponentToSet);
 
 
 private:

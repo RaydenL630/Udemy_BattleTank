@@ -6,6 +6,9 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
+class UTankBarrel;//Forward Declaration
+
+//Component that processes the aiming of "Tank" type pawns.
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TOONTANKS_API UTankAimingComponent : public UActorComponent
@@ -16,7 +19,7 @@ public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
-	void SetProjectileSpawnPoint(USceneComponent* ComponentToSet);
+	void SetProjectileSpawnPoint(UTankBarrel* ComponentToSet);
 
 protected:
 	// Called when the game starts
@@ -24,7 +27,9 @@ protected:
 
 private:
 
-	USceneComponent* ProjectileSpawnPoint = nullptr;
+	UTankBarrel* ProjectileSpawnPoint = nullptr;
+
+	void MoveBarrel(FVector TargetVector) const;
 
 public:	
 	// Called every frame
