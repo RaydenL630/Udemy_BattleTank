@@ -2,16 +2,17 @@
 
 #pragma once
 
-#include "Tank.h"
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "CPP_TankPlayerController.generated.h"
+#include "TankPlayerController.generated.h"
+
+class ATank;
 
 /**
  * 
  */
 UCLASS()
-class TOONTANKS_API ACPP_TankPlayerController : public APlayerController
+class TOONTANKS_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
@@ -23,22 +24,22 @@ public:
 private:
 
 	UPROPERTY(EditAnywhere, Category = "Reticle Screen Location")
-	float CrossHairLocationX = 0.5f;
+		float CrossHairLocationX = 0.5f;
 
 	UPROPERTY(EditAnywhere, Category = "Reticle Screen Location")
-	float CrossHairLocationY = 0.33333f;
+		float CrossHairLocationY = 0.33333f;
 
 	UPROPERTY(EditAnywhere, Category = "Reticle Screen Location")
-	float LineTraceRange = 300.f;
-	
+		float LineTraceRange = 300.f;
+
 	void AimTowardsCrosshair();
-	
+
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
 
 	bool GetLookVectorHitLocation(FVector TraceDirection, FVector& HitLocation) const;
-	
+
 	ATank* GetControlledTank() const;
-	
+
 	/*FVector2D FindScreenLocation();*/
 
 

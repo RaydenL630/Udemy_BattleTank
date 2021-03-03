@@ -26,6 +26,6 @@ private:
 		float MinimumElevation = 20;
 
 public:
-
-	void ElevateBarrel(float DegreesPerSeconds);
+	//Clamped to : -1 is max downward speed and +1 is max upwards speed.
+	void ElevateBarrel(float RelativeSpeed);
 };

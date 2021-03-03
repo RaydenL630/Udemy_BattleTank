@@ -21,11 +21,11 @@ void UTankAimingComponent::SetProjectileSpawnPoint(UTankBarrel* ComponentToSet)
 	ProjectileSpawnPoint = ComponentToSet;
 	if (ComponentToSet)
 	{
-	UE_LOG(LogTemp, Warning, TEXT("Aimingcomponent knows where to spawn projectiles"));
+		//UE_LOG(LogTemp, Warning, TEXT("Aimingcomponent knows where to spawn projectiles"));
 	}
 	else
 	{
-		UE_LOG(LogTemp, Error, TEXT("Projectile Spawn Unkown"));
+		//UE_LOG(LogTemp, Error, TEXT("Projectile Spawn Unkown"));
 	}
 }
 
@@ -47,12 +47,11 @@ void UTankAimingComponent::TakeAim(FVector TargetLocation, float LaunchSpeed) co
 
 	TArray<AActor*> ActorsToIgnore;
 
-	bool Prediction= UGameplayStatics::SuggestProjectileVelocity(this, ProjectileVelocity, GetOwner()->GetActorLocation()/*Change this Vactor to the actual spawn point later*/, TargetLocation, LaunchSpeed, false, 0.f, 1.f, ESuggestProjVelocityTraceOption::DoNotTrace);
+	bool Prediction= UGameplayStatics::SuggestProjectileVelocity(this, ProjectileVelocity, GetOwner()->GetActorLocation()/*Change this Vactor to the actual spawn point later*/, TargetLocation, LaunchSpeed, false, 0.f, 0.f, ESuggestProjVelocityTraceOption::DoNotTrace);
 
 	if (Prediction)
 	{
 		MoveBarrel(ProjectileVelocity);
-		UE_LOG(LogTemp, Warning, TEXT("%s is firing at %s"), *GetOwner()->GetName(), *ProjectileVelocity.GetSafeNormal().ToString());
 	}
 
 }
@@ -66,7 +65,7 @@ void UTankAimingComponent::MoveBarrel(FVector TargetVector) const
 
 	ProjectileSpawnPoint->ElevateBarrel(5); //REMOVE THIS MAGIC NUMBER MOFO
 
-	ProjectileSpawnPoint->GetAttachParent()->SetWorldRotation(AimAsRotation);
+	//ProjectileSpawnPoint->GetAttachParent()->SetWorldRotation(AimAsRotation);
 }
 
 // Called every frame
