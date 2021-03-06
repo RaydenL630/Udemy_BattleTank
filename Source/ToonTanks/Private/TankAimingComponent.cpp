@@ -47,7 +47,7 @@ void UTankAimingComponent::TakeAim(FVector TargetLocation, float LaunchSpeed) co
 
 	TArray<AActor*> ActorsToIgnore;
 
-	bool Prediction= UGameplayStatics::SuggestProjectileVelocity(this, ProjectileVelocity, GetOwner()->GetActorLocation()/*Change this Vactor to the actual spawn point later*/, TargetLocation, LaunchSpeed, false, 0.f, 0.f, ESuggestProjVelocityTraceOption::DoNotTrace);
+	bool Prediction= UGameplayStatics::SuggestProjectileVelocity(this, ProjectileVelocity, ProjectileSpawnPoint->GetComponentLocation(), TargetLocation, LaunchSpeed, false, 0.f, 0.f, ESuggestProjVelocityTraceOption::DoNotTrace, CollisionResponseParams, ActorsToIgnore, false);
 
 	if (Prediction)
 	{
@@ -63,7 +63,7 @@ void UTankAimingComponent::MoveBarrel(FVector TargetVector) const
 	FRotator AimAsRotation = TargetVector.Rotation();
 	FRotator DeltaRotation = AimAsRotation - CurrentRotation;
 
-	ProjectileSpawnPoint->ElevateBarrel(5); //REMOVE THIS MAGIC NUMBER MOFO
+	ProjectileSpawnPoint->AdjustBarrel(DeltaRotation.Pitch, DeltaRotation.Yaw);
 
 	//ProjectileSpawnPoint->GetAttachParent()->SetWorldRotation(AimAsRotation);
 }

@@ -30,7 +30,7 @@ private:
 		float CrossHairLocationY = 0.33333f;
 
 	UPROPERTY(EditAnywhere, Category = "Reticle Screen Location")
-		float LineTraceRange = 300.f;
+		float LineTraceRange = 100000.f;
 
 	void AimTowardsCrosshair();
 
