@@ -15,8 +15,7 @@ class TOONTANKS_API ATankAIController : public AAIController
 		 
 private:
 
-	ATank* GetControlledActor() const;
-	ATank* GetPlayerTank() const;
+
 
 	void BeginPlay() override;
 	void Tick(float DeltaTime) override;

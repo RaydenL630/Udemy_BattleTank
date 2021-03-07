@@ -24,6 +24,6 @@ void UTankBarrel::AdjustBarrel(float VerticalDelta, float HorizontalDelta)
 
 	GetAttachParent()->SetRelativeRotation(FRotator(ClampedElevation, ClampedRotation, 0));
 
-	UE_LOG(LogTemp, Warning, TEXT("Elevating at %f"), VerticalDelta);
-	UE_LOG(LogTemp, Error, TEXT("Rotating at %f"), HorizontalDelta);
+	//UE_LOG(LogTemp, Warning, TEXT("Elevating at %f"), VerticalDelta);
+	//UE_LOG(LogTemp, Error, TEXT("Rotating at %f"), HorizontalDelta);
 }

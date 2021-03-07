@@ -8,6 +8,7 @@
 
 class UTankBarrel;
 class UTankAimingComponent;
+class AProjectile;
 
 UCLASS()
 class TOONTANKS_API ATank : public APawn
@@ -37,9 +38,21 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetProjectileSpawnPointReference(UTankBarrel* ComponentToSet);
 
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void Fire();
 
 private:
 
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float LaunchSpeed = 100000.f;
+
+	UPROPERTY(EditAnywhere, Category = Firing)
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	UTankBarrel* Barrel = nullptr;
+
+	float ReloadTimeInSeconds = 3;
+
+	double LastFireTime = 0;
+
 };

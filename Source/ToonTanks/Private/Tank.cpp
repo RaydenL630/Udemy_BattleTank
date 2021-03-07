@@ -4,6 +4,7 @@
 #include "Tank.h"
 #include "TankBarrel.h"
 #include "TankAimingComponent.h"
+#include "Projectile.h"
 
 // Sets default values
 ATank::ATank()
@@ -33,7 +34,25 @@ void ATank::Tick(float DeltaTime)
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+}
 
+void ATank::Fire()
+{
+	bool isLoaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
+
+	if (Barrel && isLoaded) 
+	{ 
+		FActorSpawnParameters SpawnParams;
+
+		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetComponentLocation(), Barrel->GetComponentRotation(), SpawnParams);
+
+		Projectile->LaunchProjectile(LaunchSpeed);
+
+		UE_LOG(LogTemp, Warning, TEXT("Firing"));
+
+		LastFireTime = FPlatformTime::Seconds();
+
+	}
 }
 
 void ATank::AimAt(FVector HitLocation)
@@ -44,5 +63,6 @@ void ATank::AimAt(FVector HitLocation)
 void ATank::SetProjectileSpawnPointReference(UTankBarrel* ComponentToSet)
 {
 	TankAimingComponent->SetProjectileSpawnPoint(ComponentToSet);
+	Barrel = ComponentToSet;
 }
 
